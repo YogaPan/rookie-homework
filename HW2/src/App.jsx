@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './assets/App.css';
-import CalcButton from './components/CalcButton'; // import { updateResult, clearResult } from './actions';
+import CalcButton from './components/CalcButton';
+import { updateResult, clearResult } from './actions';
 
 const App = ({ result, clearResult }) => {
   return (
