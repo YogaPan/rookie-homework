@@ -1,6 +1,5 @@
 # [HW1] Git Submodule
-## 狀況1
-加入 Git submodule
+## 狀況1：加入 Git submodule
 
 ```sh
 $ git submodule add <repository-url> <directory>
@@ -25,8 +24,7 @@ Gitlink 是連結 git repository 中的某一個 commit object ( 例如 70460b4b
 
 ```
 
-## 狀況2
-更新 submodules
+## 狀況2：更新 submodules
 
 ### User A
 手動至每個子項目下 pull
@@ -59,8 +57,7 @@ $ git pull origin master
 $ git submodule update
 ```
 
-## 狀況3
-當要 Clone 含有 Submodule 的 Git 專案時
+## 狀況3：當要 Clone 含有 Submodule 的 Git 專案時
 
 ```sh
 $ git clone --recursive <project-url>
@@ -71,11 +68,9 @@ $ git clone --recursive <project-url>
 $ git clone <project-url>
 ```
 
-會發現 Submodule 的資料夾空空如也!
+會發現 Submodule 的資料夾空空如也，怎麼辦呢？
 
 Note: 如果 Clone 專案的同時沒有使用`--recursive` 這個參數的話，其他 submodules 的資料夾底下會是空的。
-
-怎麼辦呢？
 
 ```sh
 $ git submodule init
@@ -99,28 +94,31 @@ $ git submodule update --init --recursive
 
 這樣才算真的有套用到 submodule，只有 .gitmodules 這個檔案是不夠的。
 
-## 狀況4
-移除 submodule
+## 狀況4：移除 submodule
 
 1. 移除目錄
+
 `git rm —cached [目錄]`
 `git rm [目錄]`
 
 2. 修改.gitmodules，移除不需要的 module
+
 `code .gitmodules`
 
 3. 修改.git/config，移除 submodule URL
+
 `code .git/config`
 
 4. 執行 commit
+
 `git add . && git commit -m “Remove sub module”`
 
 5. 最後 syn module 資料
+
 `$ git submodule sync`
 
-## 狀況5
-從現有專案獨立切割出來
-TODO
+## 狀況5：從現有專案獨立切割出來
+
 
 ## 參考資料
 * [Git - 子模組 (Submodules)](https://git-scm.com/book/zh-tw/v1/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E7%B5%84-Submodules)
