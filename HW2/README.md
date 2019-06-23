@@ -1,5 +1,7 @@
 # [HW2] React Redux Calculator
 
+![image](https://github.com/YogaPan/rookie-homework/blob/master/screenshot.png)
+
 ## 如何使用
 Clone 下專案
 ```sh
