@@ -14,8 +14,6 @@ $ npm install && npm start
 $ yarn && yarn start
 ```
 
-http://localhost:3000
-
 ### Production
 
 Build 專案
@@ -47,10 +45,14 @@ $ docker run -p 8080:5000 --name calculator -d galtz/react-redux-calculator
 透過 http://localhost:8080 看到 Production 成品
 
 ## 使用到的套件
+
 ### Create React App
+
 > You *don’t* need to install or configure tools like Webpack or Babel.
 > They are preconfigured and hidden so that you can focus on the code.
 > Just create a project, and you’re good to go.
+
+https://github.com/facebook/create-react-app
 
 ### Eslint
 使用 Airbnb styleguide，確保程式碼乾淨整齊。
