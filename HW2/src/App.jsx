@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './assets/App.css';
-import CalcButton from './components/CalcButton';
-import { updateResult, clearResult } from './actions';
+import CalcButton from './components/CalcButton'; // import { updateResult, clearResult } from './actions';
 
 const App = ({ result, clearResult }) => {
   return (
@@ -11,34 +10,34 @@ const App = ({ result, clearResult }) => {
       <p className="result">{result}</p>
       <div className="button-row">
         <button className="calc-button calc-button--functional" type="button" onClick={() => clearResult()}>AC</button>
-        <CalcButton buttonNumber="+/-" isFunctional={true} />
-        <CalcButton buttonNumber="%" isFunctional={true}/>
-        <CalcButton buttonNumber="/" isOperator={true} />
+        <CalcButton buttonValue="+/-" isFunctional={true} />
+        <CalcButton buttonValue="%" isFunctional={true}/>
+        <CalcButton buttonValue="/" isOperator={true} />
       </div>
 
       <div className="button-row">
-        <CalcButton buttonNumber="7" />
-        <CalcButton buttonNumber="8" />
-        <CalcButton buttonNumber="9" />
-        <CalcButton buttonNumber="*" isOperator={true} />
+        <CalcButton buttonValue={7} />
+        <CalcButton buttonValue={8} />
+        <CalcButton buttonValue={9} />
+        <CalcButton buttonValue="*" isOperator={true} />
       </div>
       <div className="button-row">
-        <CalcButton buttonNumber="4" />
-        <CalcButton buttonNumber="5" />
-        <CalcButton buttonNumber="6" />
-        <CalcButton buttonNumber="-" isOperator={true}/>
+        <CalcButton buttonValue={4} />
+        <CalcButton buttonValue={5} />
+        <CalcButton buttonValue={6} />
+        <CalcButton buttonValue="-" isOperator={true}/>
       </div>
       <div className="button-row">
-        <CalcButton buttonNumber="1" />
-        <CalcButton buttonNumber="2" />
-        <CalcButton buttonNumber="3" />
-        <CalcButton buttonNumber="+" isOperator={true}/>
+        <CalcButton buttonValue={1} />
+        <CalcButton buttonValue={2} />
+        <CalcButton buttonValue={3} />
+        <CalcButton buttonValue="+" isOperator={true}/>
       </div>
       <div className="button-row">
-        <CalcButton buttonNumber="0" />
-        <CalcButton buttonNumber="." />
-        <CalcButton buttonNumber="." />
-        <CalcButton buttonNumber="=" isOperator={true}/>
+        <CalcButton buttonValue={0} />
+        <CalcButton buttonValue="." />
+        <CalcButton buttonValue="." />
+        <CalcButton buttonValue="=" isOperator={true}/>
       </div>
     </div>
   );

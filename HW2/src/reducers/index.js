@@ -1,15 +1,22 @@
 import { UPDATE, CLEAR } from '../constants';
 
 const initialState = {
+  calculation: [],
   result: 0,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE:
-      return { result: action.payload.inputValue };
+      return {
+        calculation: action.payload.calculation,
+        result: action.payload.result,
+      };
     case CLEAR:
-      return { result: 0 };
+      return {
+        calculation: [],
+        result: 0,
+      };
     default:
       return state;
   }

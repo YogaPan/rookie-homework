@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateResult } from '../actions';
 
-const CalcButton = ({ buttonNumber, isOperator, isFunctional, updateResult }) => {
+const CalcButton = ({
+  buttonValue,
+  calculation,
+  result,
+  isOperator,
+  isFunctional,
+  updateResult,
+}) => {
   let className = 'calc-button';
   if (isOperator) className += ' calc-button--operator';
   if (isFunctional) className += ' calc-button--functional';
@@ -12,9 +19,9 @@ const CalcButton = ({ buttonNumber, isOperator, isFunctional, updateResult }) =>
     <button
       className={className}
       type="button"
-      onClick={() => updateResult(Number(buttonNumber))}
+      onClick={() => updateResult(buttonValue, calculation, result)}
     >
-      {buttonNumber}
+      {buttonValue}
     </button>
   );
 };
@@ -25,14 +32,26 @@ CalcButton.defaultProps = {
 };
 
 CalcButton.propTypes = {
-  buttonNumber: PropTypes.string.isRequired,
+  buttonValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  result: PropTypes.number.isRequired,
+  calculation: PropTypes.arrayOf(PropTypes.string).isRequired,
   isOperator: PropTypes.bool,
   isFunctional: PropTypes.bool,
   updateResult: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  updateResult: buttonNumber => dispatch(updateResult(buttonNumber)),
+const mapStateToProps = state => ({
+  result: state.result,
+  calculation: state.calculation,
 });
 
-export default connect(null, mapDispatchToProps)(CalcButton);
+const mapDispatchToProps = dispatch => ({
+  updateResult: (inputValue, currentState, currentResult) => (
+    dispatch(updateResult(inputValue, currentState, currentResult))
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CalcButton);
