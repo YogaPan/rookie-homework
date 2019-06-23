@@ -1,4 +1,4 @@
-# [HW2] React Redux Calculator
+# HW2: React Redux Calculator
 
 ![image](https://github.com/YogaPan/rookie-homework/blob/master/screenshot.png)
 
@@ -70,7 +70,7 @@ https://facebook.github.io/create-react-app/docs/supported-browsers-features
 
 ### Serve 套件
 最簡單的方式在 localhost 建立靜態網頁
-https://github.com/zeit/serve 
+https://github.com/zeit/serve
 
 ### 計算機邏輯
 Big.js

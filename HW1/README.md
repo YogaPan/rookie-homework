@@ -1,4 +1,4 @@
-# [HW1] Git Submodule
+# HW1: Git Submodule
 ## 狀況1：加入 Git submodule
 
 ```sh
@@ -20,7 +20,7 @@ Gitlink 是連結 git repository 中的某一個 commit object ( 例如 70460b4b
 ```gitmodules
 [submodule "test-submodules"]
   path = test-submodules
-  url =  [https://github.com/YogaPan/test-submodules](https://github.com/YogaPan/test-submodules) 
+  url =  [https://github.com/YogaPan/test-submodules](https://github.com/YogaPan/test-submodules)
 
 ```
 
