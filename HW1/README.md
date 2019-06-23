@@ -24,6 +24,8 @@ Gitlink 是連結 git repository 中的某一個 commit object ( 例如 70460b4b
 
 ```
 
+
+
 ## 狀況2：更新 submodules
 
 ### User A
@@ -56,6 +58,8 @@ $ git pull origin master
 ```sh
 $ git submodule update
 ```
+
+
 
 ## 狀況3：當要 Clone 含有 Submodule 的 Git 專案時
 
@@ -94,6 +98,8 @@ $ git submodule update --init --recursive
 
 這樣才算真的有套用到 submodule，只有 .gitmodules 這個檔案是不夠的。
 
+
+
 ## 狀況4：移除 submodule
 
 1. 移除目錄
@@ -117,7 +123,10 @@ $ git submodule update --init --recursive
 
 `$ git submodule sync`
 
+
+
 ## 狀況5：從現有專案獨立切割出來
+TODO
 
 
 ## 參考資料
