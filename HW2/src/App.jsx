@@ -11,14 +11,14 @@ const App = () => (
       <CalcButton buttonName="AC" isFunctional />
       <CalcButton buttonName="+/-" isFunctional />
       <CalcButton buttonName="%" isFunctional />
-      <CalcButton buttonName="/" isOperator />
+      <CalcButton buttonName="÷" isOperator />
     </div>
 
     <div className="button-row">
       <CalcButton buttonName="7" />
       <CalcButton buttonName="8" />
       <CalcButton buttonName="9" />
-      <CalcButton buttonName="*" isOperator />
+      <CalcButton buttonName="x" isOperator />
     </div>
     <div className="button-row">
       <CalcButton buttonName="4" />
