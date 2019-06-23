@@ -25,7 +25,7 @@ $ yarn build
 
 Serve 靜態網頁
 ```sh
-$ serve -s build -l 5000
+$ npx serve -s build -l 5000
 ```
 
 透過 http://localhost:5000 看到 Production 成品
