@@ -1,111 +1,157 @@
-export const calculation = (calcArray, currentResult) => {
-  // Get the current calc array
-  // Convert calc array to string
-  // Split string based on operators (/ * - +)
-  // Loop over array and make calculation
-  if (isNaN(calcArray[calcArray.length - 1])) {
-    return currentResult;
+import Big from 'big.js';
+
+const isNumber = item => /[0-9]+/.test(item);
+
+const operate = (numberOne, numberTwo, operation) => {
+  const one = Big(numberOne || "0");
+  const two = Big(numberTwo || (operation === "÷" || operation === 'x' ? "1": "0")); //If dividing or multiplying, then 1 maintains current value in cases of null
+
+  if (operation === "+") {
+    return one.plus(two).toString();
   }
-
-  // Operator functions that are invoked
-  // on the loop to calculate the values
-  // in calculation array
-  const operatorFunctions = {
-    "+": (a, b) => {
-      return a + b;
-    },
-    "-": (a, b) => {
-      return a - b;
-    },
-    "*": (a, b) => {
-      return a * b;
-    },
-    "/": (a, b) => {
-      return a / b;
-    }
-  };
-
-  // Join the calc array to create a string
-  // I do thos to make it easier to join the numbers
-  // so that the calculation loop can be done
-  let calcString = calcArray.join("");
-
-  // Split the calc string based on the operators
-  // This will allow me to combine the numbers and seperate
-  // the operators
-  // Example [4,5,'+',2,'/',6] -> '45+2/6' -> ['45','+','2','/','6']
-  let calcArrayUpdated = calcString.split(/(\+|-|\*|\/)/g);
-
-  // Set default result to 0
-  let result = 0;
-
-  // Set a default operator value
-  // I do this as having non assigned vars
-  // is bad practice in most companies I have worked for
-  let operator = "+";
-
-  // Loop and calculate
-  // I do this to ensure that the correct order of operations is achieved
-  // If I did standard math on the values it would follow the
-  // order of operations as if it was a whole equation
-  // Also having it in an array allows us to pop the values if we want to
-  // clear just one value, making it future proof
-  for (let i = 0; i < calcArrayUpdated.length; i++) {
-    // Grab the value;
-    let item = calcArrayUpdated[i];
-    // Test if the last value is an operator
-    let isOperator = /(\+|-|\*|\/)/.test(item);
-
-    // Sets the last operator in the array
-    // This allows us to make the calculation in the next loop
-    if (isOperator) {
-      operator = item;
+  if (operation === "-") {
+    return one.minus(two).toString();
+  }
+  if (operation === "x") {
+    return one.times(two).toString();
+  }
+  if (operation === "÷") {
+    if (two === "0") {
+      alert("Divide by 0 error");
+      return "0";
     } else {
-      result = operatorFunctions[operator](result, parseInt(item));
+      return one.div(two).toString();
+    }
+  }
+  throw Error(`Unknown operation '${operation}'`);
+}
+
+/**
+ * Given a button name and a calculator data object, return an updated
+ * calculator data object.
+ *
+ * Calculator data object contains:
+ *   total:String      the running total
+ *   next:String       the next number to be operated on with the total
+ *   operation:String  +, -, etc.
+ */
+export default function calculate(obj, buttonName) {
+  if (buttonName === "AC") {
+    return {
+      total: null,
+      next: null,
+      operation: null
+    };
+  }
+
+  if (isNumber(buttonName)) {
+    if (buttonName === "0" && obj.next === "0") {
+      return {};
+    }
+    // If there is an operation, update next
+    if (obj.operation) {
+      if (obj.next) {
+        return { next: obj.next + buttonName };
+      }
+      return { next: buttonName };
+    }
+    // If there is no operation, update next and clear the value
+    if (obj.next) {
+      const next = obj.next === "0" ? buttonName : obj.next + buttonName;
+      return {
+        next,
+        total: null
+      };
+    }
+    return {
+      next: buttonName,
+      total: null
+    };
+  }
+
+  if (buttonName === "%") {
+    if (obj.operation && obj.next) {
+      const result = operate(obj.total, obj.next, obj.operation);
+      return {
+        total: Big(result)
+          .div(Big("100"))
+          .toString(),
+        next: null,
+        operation: null
+      };
+    }
+    if (obj.next) {
+      return {
+        next: Big(obj.next)
+          .div(Big("100"))
+          .toString()
+      };
+    }
+    return {};
+  }
+
+  if (buttonName === ".") {
+    if (obj.next) {
+      // ignore a . if the next number already has one
+      if (obj.next.includes(".")) {
+        return {};
+      }
+      return { next: obj.next + "." };
+    }
+    return { next: "0." };
+  }
+
+  if (buttonName === "=") {
+    if (obj.next && obj.operation) {
+      return {
+        total: operate(obj.total, obj.next, obj.operation),
+        next: null,
+        operation: null
+      };
+    } else {
+      // '=' with no operation, nothing to do
+      return {};
     }
   }
 
-  return result;
-};
-
-export const addValueToCalculation = (value, currentState) => {
-  currentState = [...currentState];
-
-  // List of operators to check for
-  let operatorValues = ["*", "/", "+", "-"];
-
-  // If not number or operator then return
-  // this is used in the case of adding to calculation with keypresses
-  if (typeof value !== "number" && !operatorValues.includes(value)) {
-    return currentState;
+  if (buttonName === "+/-") {
+    if (obj.next) {
+      return { next: (-1 * parseFloat(obj.next)).toString() };
+    }
+    if (obj.total) {
+      return { total: (-1 * parseFloat(obj.total)).toString() };
+    }
+    return {};
   }
 
-  // If the new value is an operator the calculation array is empty
-  // Then do nothing
-  if (operatorValues.includes(value) && !currentState.length) {
-    return currentState;
+  // Button must be an operation
+
+  // When the user presses an operation button without having entered
+  // a number first, do nothing.
+  // if (!obj.next && !obj.total) {
+  //   return {};
+  // }
+
+  // User pressed an operation button and there is an existing operation
+  if (obj.operation) {
+    return {
+      total: operate(obj.total, obj.next, obj.operation),
+      next: null,
+      operation: buttonName
+    };
   }
 
-  // Todo check if operator was last entry
-  // Get the previous value so we can check it is an operator
-  let lastVal = currentState[currentState.length - 1];
+  // no operation yet, but the user typed one
 
-  // Test is last value is an operator
-  let lastValIsOperator = operatorValues.includes(lastVal);
-
-  // Test is current value is an operator
-  let currentValIsOperator = operatorValues.includes(value);
-
-  // Check if last val in array is an operator
-  // Then replace it if new value is an operator
-  if (lastValIsOperator && currentValIsOperator) {
-    // Clone the state so we can replace the value
-    // Replace last operator with new operator
-    currentState[currentState.length - 1] = value;
-
-    // Break out of the function
-    return currentState;
+  // The user hasn't typed a number yet, just save the operation
+  if (!obj.next) {
+    return { operation: buttonName };
   }
 
-  return [...currentState, value];
-};
+  // save the operation and shift 'next' into 'total'
+  return {
+    total: obj.next,
+    next: null,
+    operation: buttonName
+  };
+}

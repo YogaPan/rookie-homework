@@ -1,2 +1,1 @@
-export const UPDATE = 'UPDATE';
-export const CLEAR = 'CLEAR';
+export const CALCULATE = 'CALCULATE';

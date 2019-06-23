@@ -1,22 +1,16 @@
-import { UPDATE, CLEAR } from '../constants';
+import { CALCULATE } from '../constants';
+import calculate from '../utils';
 
 const initialState = {
-  calculation: [],
-  result: 0,
+  total: null,
+  next: null,
+  operation: null,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE:
-      return {
-        calculation: action.payload.calculation,
-        result: action.payload.result,
-      };
-    case CLEAR:
-      return {
-        calculation: [],
-        result: 0,
-      };
+    case CALCULATE:
+      return calculate(state, action.payload.buttonName);
     default:
       return state;
   }
