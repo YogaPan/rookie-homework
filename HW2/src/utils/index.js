@@ -3,28 +3,29 @@ import Big from 'big.js';
 const isNumber = item => /[0-9]+/.test(item);
 
 const operate = (numberOne, numberTwo, operation) => {
-  const one = Big(numberOne || "0");
-  const two = Big(numberTwo || (operation === "÷" || operation === 'x' ? "1": "0")); //If dividing or multiplying, then 1 maintains current value in cases of null
+  const one = Big(numberOne || '0');
+  // If dividing or multiplying, then 1 maintains current value in cases of null
+  const two = Big(numberTwo || (operation === '÷' || operation === 'x' ? '1' : '0'));
 
-  if (operation === "+") {
+  if (operation === '+') {
     return one.plus(two).toString();
   }
-  if (operation === "-") {
+  if (operation === '-') {
     return one.minus(two).toString();
   }
-  if (operation === "x") {
+  if (operation === 'x') {
     return one.times(two).toString();
   }
-  if (operation === "÷") {
-    if (two === "0") {
-      alert("Divide by 0 error");
-      return "0";
-    } else {
-      return one.div(two).toString();
+  if (operation === '÷') {
+    if (two === '0') {
+      alert('Divide by 0 error');
+      return '0';
     }
+
+    return one.div(two).toString();
   }
   throw Error(`Unknown operation '${operation}'`);
-}
+};
 
 /**
  * Given a button name and a calculator data object, return an updated
@@ -36,16 +37,16 @@ const operate = (numberOne, numberTwo, operation) => {
  *   operation:String  +, -, etc.
  */
 export default function calculate(obj, buttonName) {
-  if (buttonName === "AC") {
+  if (buttonName === 'AC') {
     return {
       total: null,
       next: null,
-      operation: null
+      operation: null,
     };
   }
 
   if (isNumber(buttonName)) {
-    if (buttonName === "0" && obj.next === "0") {
+    if (buttonName === '0' && obj.next === '0') {
       return {
         total: obj.total,
         next: obj.next,
@@ -69,7 +70,7 @@ export default function calculate(obj, buttonName) {
     }
     // If there is no operation, update next and clear the value
     if (obj.next) {
-      const next = obj.next === "0" ? buttonName : obj.next + buttonName;
+      const next = obj.next === '0' ? buttonName : obj.next + buttonName;
       return {
         next,
         total: null,
@@ -83,22 +84,22 @@ export default function calculate(obj, buttonName) {
     };
   }
 
-  if (buttonName === "%") {
+  if (buttonName === '%') {
     if (obj.operation && obj.next) {
       const result = operate(obj.total, obj.next, obj.operation);
       return {
         total: Big(result)
-          .div(Big("100"))
+          .div(Big('100'))
           .toString(),
         next: null,
-        operation: null
+        operation: null,
       };
     }
     if (obj.next) {
       return {
         total: obj.total,
         next: Big(obj.next)
-          .div(Big("100"))
+          .div(Big('100'))
           .toString(),
         operation: obj.operation,
       };
@@ -110,10 +111,10 @@ export default function calculate(obj, buttonName) {
     };
   }
 
-  if (buttonName === ".") {
+  if (buttonName === '.') {
     if (obj.next) {
       // ignore a . if the next number already has one
-      if (obj.next.includes(".")) {
+      if (obj.next.includes('.')) {
         return {
           total: obj.total,
           next: obj.next,
@@ -122,35 +123,35 @@ export default function calculate(obj, buttonName) {
       }
       return {
         total: obj.total,
-        next: obj.next + ".",
+        next: `${obj.next}.`,
         operation: obj.operation,
       };
     }
     return {
       total: obj.total,
-      next: "0.",
+      next: '0.',
       operation: obj.operation,
     };
   }
 
-  if (buttonName === "=") {
+  if (buttonName === '=') {
     if (obj.next && obj.operation) {
       return {
         total: operate(obj.total, obj.next, obj.operation),
         next: null,
-        operation: null
-      };
-    } else {
-      // '=' with no operation, nothing to do
-      return {
-        total: obj.total,
-        next: obj.next,
-        operation: obj.operation,
+        operation: null,
       };
     }
+
+    // '=' with no operation, nothing to do
+    return {
+      total: obj.total,
+      next: obj.next,
+      operation: obj.operation,
+    };
   }
 
-  if (buttonName === "+/-") {
+  if (buttonName === '+/-') {
     if (obj.next) {
       return {
         total: obj.total,
@@ -185,7 +186,7 @@ export default function calculate(obj, buttonName) {
     return {
       total: operate(obj.total, obj.next, obj.operation),
       next: null,
-      operation: buttonName
+      operation: buttonName,
     };
   }
 
@@ -204,6 +205,6 @@ export default function calculate(obj, buttonName) {
   return {
     total: obj.next,
     next: null,
-    operation: buttonName
+    operation: buttonName,
   };
 }
