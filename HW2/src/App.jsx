@@ -1,61 +1,44 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import './assets/App.css';
 import CalcButton from './components/CalcButton';
-import { updateResult, clearResult } from './actions';
+import Display from './components/Display';
 
-const App = ({ result, clearResult }) => {
-  return (
-    <div className="App">
-      <p className="result">{result}</p>
-      <div className="button-row">
-        <button className="calc-button calc-button--functional" type="button" onClick={() => clearResult()}>AC</button>
-        <CalcButton buttonValue="+/-" isFunctional={true} />
-        <CalcButton buttonValue="%" isFunctional={true}/>
-        <CalcButton buttonValue="/" isOperator={true} />
-      </div>
+const App = () => (
+  <div className="App">
+    <Display />
 
-      <div className="button-row">
-        <CalcButton buttonValue={7} />
-        <CalcButton buttonValue={8} />
-        <CalcButton buttonValue={9} />
-        <CalcButton buttonValue="*" isOperator={true} />
-      </div>
-      <div className="button-row">
-        <CalcButton buttonValue={4} />
-        <CalcButton buttonValue={5} />
-        <CalcButton buttonValue={6} />
-        <CalcButton buttonValue="-" isOperator={true}/>
-      </div>
-      <div className="button-row">
-        <CalcButton buttonValue={1} />
-        <CalcButton buttonValue={2} />
-        <CalcButton buttonValue={3} />
-        <CalcButton buttonValue="+" isOperator={true}/>
-      </div>
-      <div className="button-row">
-        <CalcButton buttonValue={0} />
-        <CalcButton buttonValue="." />
-        <CalcButton buttonValue="." />
-        <CalcButton buttonValue="=" isOperator={true}/>
-      </div>
+    <div className="button-row">
+      <CalcButton buttonName="AC" isFunctional />
+      <CalcButton buttonName="+/-" isFunctional />
+      <CalcButton buttonName="%" isFunctional />
+      <CalcButton buttonName="÷" isOperator />
     </div>
-  );
-};
 
-App.propTypes = {
-  result: PropTypes.number.isRequired,
-  clearResult: PropTypes.func.isRequired,
-};
+    <div className="button-row">
+      <CalcButton buttonName="7" />
+      <CalcButton buttonName="8" />
+      <CalcButton buttonName="9" />
+      <CalcButton buttonName="x" isOperator />
+    </div>
+    <div className="button-row">
+      <CalcButton buttonName="4" />
+      <CalcButton buttonName="5" />
+      <CalcButton buttonName="6" />
+      <CalcButton buttonName="-" isOperator />
+    </div>
+    <div className="button-row">
+      <CalcButton buttonName="1" />
+      <CalcButton buttonName="2" />
+      <CalcButton buttonName="3" />
+      <CalcButton buttonName="+" isOperator />
+    </div>
+    <div className="button-row">
+      <CalcButton buttonName="0" />
+      <CalcButton buttonName="." />
+      <CalcButton buttonName="." />
+      <CalcButton buttonName="=" isOperator />
+    </div>
+  </div>
+);
 
-const mapStateToProps = state => ({
-  result: state.result,
-});
-
-const mapDispatchToProps = dispatch => ({
-  updateResult: result => dispatch(updateResult(result)),
-  clearResult: () => dispatch(clearResult()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
