@@ -1,44 +1,53 @@
-import React from 'react';
-import './assets/App.css';
-import CalcButton from './components/CalcButton';
-import Display from './components/Display';
+import React from 'react'
+import styled from 'styled-components'
+import CalcButton from './components/CalcButton'
+import Display from './components/Display'
+
+const AppContainer = styled.div`
+  text-align: center;
+  background-color: #000;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  padding: 20px;
+`
 
 const App = () => (
-  <div className="App">
+  <AppContainer>
     <Display />
+    <CalcButton.Row>
+      <CalcButton.Functional value="AC" />
+      <CalcButton.Functional value="+/-" />
+      <CalcButton.Functional value="%" />
+      <CalcButton.Operator value="÷" />
+    </CalcButton.Row>
+    <CalcButton.Row>
+      <CalcButton value="7" />
+      <CalcButton value="8" />
+      <CalcButton value="9" />
+      <CalcButton.Operator value="x" />
+    </CalcButton.Row>
+    <CalcButton.Row>
+      <CalcButton value="4" />
+      <CalcButton value="5" />
+      <CalcButton value="6" />
+      <CalcButton.Operator value="-" />
+    </CalcButton.Row>
+    <CalcButton.Row>
+      <CalcButton value="1" />
+      <CalcButton value="2" />
+      <CalcButton value="3" />
+      <CalcButton.Operator value="+" />
+    </CalcButton.Row>
+    <CalcButton.Row>
+      <CalcButton value="0" />
+      <CalcButton value="." />
+      <CalcButton value="." />
+      <CalcButton.Operator value="=" />
+    </CalcButton.Row>
+  </AppContainer>
+)
 
-    <div className="button-row">
-      <CalcButton buttonName="AC" isFunctional />
-      <CalcButton buttonName="+/-" isFunctional />
-      <CalcButton buttonName="%" isFunctional />
-      <CalcButton buttonName="÷" isOperator />
-    </div>
-
-    <div className="button-row">
-      <CalcButton buttonName="7" />
-      <CalcButton buttonName="8" />
-      <CalcButton buttonName="9" />
-      <CalcButton buttonName="x" isOperator />
-    </div>
-    <div className="button-row">
-      <CalcButton buttonName="4" />
-      <CalcButton buttonName="5" />
-      <CalcButton buttonName="6" />
-      <CalcButton buttonName="-" isOperator />
-    </div>
-    <div className="button-row">
-      <CalcButton buttonName="1" />
-      <CalcButton buttonName="2" />
-      <CalcButton buttonName="3" />
-      <CalcButton buttonName="+" isOperator />
-    </div>
-    <div className="button-row">
-      <CalcButton buttonName="0" />
-      <CalcButton buttonName="." />
-      <CalcButton buttonName="." />
-      <CalcButton buttonName="=" isOperator />
-    </div>
-  </div>
-);
-
-export default App;
+export default App

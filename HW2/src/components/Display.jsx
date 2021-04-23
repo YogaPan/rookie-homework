@@ -1,21 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from 'react'
+import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
-const Display = ({ next, total }) => (
-  <div className="display">
-    <p className="result">{next || total || '0'}</p>
-  </div>
-);
+const ResultContainer = styled.div`
+  font-size: 50px;
+  color: #ffffff;
+  text-align: right;
+`
 
-Display.propTypes = {
-  next: PropTypes.string,
-  total: PropTypes.string,
-};
+const Display = () => {
+  const { next, total } = useSelector(({ next, total }) => ({ next, total }))
 
-const mapStateToProps = state => ({
-  next: state.next,
-  total: state.total,
-});
+  return (
+    <ResultContainer>
+      <p className="result">{next || total || '0'}</p>
+    </ResultContainer>
+  )
+}
 
-export default connect(mapStateToProps)(Display);
+export default Display

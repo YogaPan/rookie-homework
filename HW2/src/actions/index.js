@@ -1,8 +1,3 @@
-import { CALCULATE } from '../constants';
+import { createActions } from 'redux-actions'
 
-export const calculate = buttonName => ({
-  type: CALCULATE,
-  payload: {
-    buttonName,
-  },
-});
+export default createActions('CALCULATE')
